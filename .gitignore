@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.py[cod]
+*$py.class
+odoo
+/backups/
+/config/
+**.env
+.env.staging
+.vscode
+.volumes
+.test.py
+staging
+tmp
+*.zip
+*.gz
+.VSCodeCounter
+venv
+.idea
+.ssh
+_notes.py
+*.tar.gz
+refrence_odoo
+.DS_Store
+logs
+# Ignore environment and config files
+.env
+*.conf
+
+# Bytecode and cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.env/
+
+# Docker volumes
+hress_db_data/
+hress_odoo_data/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+
+

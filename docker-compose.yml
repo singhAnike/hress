@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - hress_db_data:/var/lib/postgresql/data
+    restart: always
+
+  web:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8070:8069"
+    volumes:
+      - hress_odoo_data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./odoo.conf:/etc/odoo/odoo.conf
+    command: ["odoo", "-c", "/etc/odoo/odoo.conf"]
+    restart: always
+
+volumes:
+  hress_db_data:
+  hress_odoo_data:
