@@ -15,7 +15,7 @@
     "author": "scidecs",
     "website": "https://www.scidecs.com/en-US/",
 
-    "depends": ['base', 'hr', 'hr_attendance', 'hr_holidays', 'hr_expense', 'hr_payroll'],
+    "depends": ['base', 'hr', 'hr_attendance', 'hr_holidays', 'hr_expense'],
 
     "data": [
         'security/ir.model.access.csv',
