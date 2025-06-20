@@ -1,6 +1,6 @@
 {
     "name": "Hress",
-    "summary": """ Employee self-service APIs for check-in/out, leave management, and payslip access.""",
+    "summary": "Employee self-service APIs for check-in/out, leave management, and payslip access.",
     "description": """
         This module provides a set of RESTful APIs that allow employees to perform essential HR functions directly from external systems or mobile applications. Key features include:
 
@@ -14,5 +14,18 @@
             """,
     "author": "scidecs",
     "website": "https://www.scidecs.com/en-US/",
+
+    "depends": ['base', 'hr', 'hr_attendance', 'hr_holidays', 'hr_expense', 'hr_payroll'],
+
+    "data": [
+        'security/ir.model.access.csv',
+        # 'views/settings.xml', (optional)
+    ],
+
+    "installable": True,
+    "application": True,
+    "auto_install": False,
+    "license": 'LGPL-3',
+
 
 }
