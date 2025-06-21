@@ -1,45 +1,37 @@
 from odoo import http
 from odoo.http import request
 import json
-
 import logging
 _logger = logging.getLogger(__name__)
-
 class HressController(http.Controller):
 
     @http.route('/api/login', type='json', auth='public', csrf=False)
     def login(self):
-        data = request.jsonrequest or {}
+        try:
+            data = json.loads(request.httprequest.data.decode('utf-8'))
+        except Exception:
+            return {'success': False, 'error': 'Invalid JSON'}
+
         login = data.get('login')
         password = data.get('password')
 
-        _logger.info(f"Received login data: login={login}, password={password}")
+        if not login or not password:
+            return {'success': False, 'error': 'Missing login or password'}
 
         try:
-            uid = request.session.authenticate(login, password)
+            db = request.env.cr.dbname
+            credential = {'login': login, 'password': password,
+                          'type': 'password'}
+            uid = request.session.authenticate(db, credential)
         except Exception as e:
             return {'success': False, 'error': str(e)}
 
         if uid:
-            user = request.env['res.users'].sudo().browse(uid)
+            user = request.env['res.users'].sudo().browse(uid['uid'])
             return {
                 'success': True,
-                'uid': uid,
+                'uid': uid['uid'],
                 'name': user.name,
-                'employee_id': user.employee_id.id
             }
 
         return {'success': False, 'error': 'Invalid credentials'}
-
-
-
-    @http.route('/api/employee/me', type='json', auth='user')
-    def employee_info(self):
-        user = request.env.user
-        employee = user.employee_id
-        return {
-            'name': employee.name,
-            'email': employee.work_email,
-            'job': employee.job_id.name,
-            'department': employee.department_id.name,
-        }
