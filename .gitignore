@@ -46,5 +46,9 @@ hress_odoo_data/
 .DS_Store
 Thumbs.db
 
+# ignore unwanted modules as well
+
+addons/rest_api_odoo
+
 
 
